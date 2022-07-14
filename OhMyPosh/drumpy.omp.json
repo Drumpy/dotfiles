@@ -1,0 +1,77 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "foreground": "#E06C75",
+          "style": "plain",
+          "template": "🔑 <#ffffff>in</> ",
+          "type": "root"
+        },
+        {
+          "foreground": "#55B9C4",
+          "properties": {
+            "style": "folder"
+          },
+          "style": "plain",
+          "template": "{{ .Path }} ",
+          "type": "path"
+        },
+        {
+          "type": "poshgit",
+          "style": "plain",
+          "template": "<#ffffff>on</> {{ .Status }}"
+        },
+        {
+          "foreground": "#98C379",
+          "properties": {
+            "fetch_version": true
+          },
+          "style": "plain",
+          "template": "<#ffffff> via</> \ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
+          "type": "node"
+        },
+        {
+          "foreground": "#C94A16",
+          "style": "plain",
+          "template": "❌",
+          "type": "exit"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "right",
+      "segments": [
+        {
+          "type": "executiontime",
+          "style": "plain",
+          "foreground": "#ff55ff",
+          "template": "⌛ {{ .FormattedMs }}",
+          "properties": {
+            "always_enabled": false,
+            "threshold": 300,
+            "style": "austin"
+          }
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "#63F08C",
+          "style": "plain",
+          "template": "↪️ ",
+          "type": "text"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "version": 2
+}
