@@ -51,13 +51,25 @@ Function repo {
   Write-Host "`nRepository '$repoName' created successfully! $([char]0xd83c)$([char]0xdf89)`n" -ForegroundColor green
 }
 
-# Creates a new repository and clone a boilerplate (aka template)
 Function template {
-  param ([string]$repoName)
+	Param(
+		[Parameter(Mandatory=$true)]
+		[string]$repoName
+	)
+	Write-Host "`r";
+	npx degit Drumpy/gh-demo $repoName;
+	cd $repoName;
+	git init --quiet;
+	Write-Host "`r";
+	gh repo create $repoName --public --source=. --remote=origin;
+  git branch -M main;
+  git add .;
+  git commit --quiet -m "feat: initial commit";
   Write-Host "`r";
-  gh repo create $repoName --public --clone --template https://github.com/Drumpy/gh-demo;
-  cd $repoName;
-  Write-Host "`nRepository '$repoName' created successfully! $([char]0xd83c)$([char]0xdf89)`n" -ForegroundColor green
+  vercel --confirm;
+  vercel git connect 2>&1 | Out-Null;
+  git push origin main --quiet;
+  Write-Host "`nYour '$repoName' repository was created and deployed in Vercel! $([char]0xd83c)$([char]0xdf89)`n" -ForegroundColor green;
 }
 
 Function rmrf {
@@ -127,19 +139,24 @@ Function speedtest {
 }
 
 # Public IP
-Function ipp { "`u{1F310} Public IP: " + (Invoke-WebRequest ifconfig.me/ip).Content.Trim() }
+Function ipp {
+  Write-Host "`r";
+  "$([char]0xd83c)$([char]0xdf10) Public IP: " + (Invoke-WebRequest ifconfig.me/ip).Content.Trim();
+  Write-Host "`r";
+}
 
 # Git Functions
-Function gll() { git pull }
+Function ggpull() { git pull }
+Function ggpush() { git push }
 Function glog() {	git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %b %Cgreen(%cd) %C(bold blue)<%an>%Creset" --abbrev-commit }
 Function gcmsg() {
   param ([string]$message)
   git commit -m "$message"
 }
+Function gaa() { git add . }
+Function gst() { git status }
+Function ggamend() { git commit --verbose --amend --reuse-message=HEAD }
 
 # TODO: Fix this
-# Function gp() { git push }
-# Function gamend() { git commit --verbose --amend --reuse-message=HEAD }
-# Function ga() { git add }
 # Function gco() { git checkout }
 # Function glast() { git log -1 HEAD --stat }
