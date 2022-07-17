@@ -56,20 +56,19 @@ Function template {
 		[Parameter(Mandatory=$true)]
 		[string]$repoName
 	)
-	Write-Host "`r";
-	npx degit Drumpy/gh-demo $repoName;
+	npx degit Drumpy/gh-demo $repoName 2>&1 | Out-Null;
+  Write-Host "`n$([char]0x2705) Cloned template to '$repoName' folder!`n" -ForegroundColor green;
 	cd $repoName;
 	git init --quiet;
-	Write-Host "`r";
 	gh repo create $repoName --public --source=. --remote=origin;
   git branch -M main;
   git add .;
-  git commit --quiet -m "feat: initial commit";
-  Write-Host "`r";
-  vercel --confirm;
+  git commit --quiet -m "feat: initial commit $([char]0x2728)";
+  vercel --confirm 2>&1 | Out-Null;
   vercel git connect 2>&1 | Out-Null;
   git push origin main --quiet;
-  Write-Host "`nYour '$repoName' repository was created and deployed in Vercel! $([char]0xd83c)$([char]0xdf89)`n" -ForegroundColor green;
+  Write-Host "`n$([char]0x2705) Your repository '$repoName' was created on Github!" -ForegroundColor green;
+  Write-Host "`n$([char]0xd83d)$([char]0xdd17) Vercel Preview: 'https://$repoName-drumpy.vercel.app'`n" -ForegroundColor magenta;
 }
 
 Function rmrf {
