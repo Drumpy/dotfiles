@@ -143,6 +143,10 @@ Function ipp {
   Write-Host "`r";
 }
 
+# Change Directory
+Function .. { cd.. }
+Function ... { cd.. ; cd.. }
+
 # Gitmoji CLI
 Function ggmoji { gitmoji -c }
 
