@@ -45,7 +45,7 @@ Function repo {
   New-Item -Name README.md -ItemType File | Out-Null;
   Set-Content -Path .\README.md -Value "# $($repoName)";
   git add README.md;
-  git commit -m "initial commit";
+  git commit -m "$([char]0xd83c)$([char]0xdf89) feat: initial commit";
   Write-Host "`r";
   git push origin main;
   Write-Host "`nRepository '$repoName' created successfully! $([char]0xd83c)$([char]0xdf89)`n" -ForegroundColor green
@@ -56,7 +56,7 @@ Function template {
 		[Parameter(Mandatory=$true)]
 		[string]$repoName
 	)
-	npx degit Drumpy/gh-demo $repoName 2>&1 | Out-Null;
+	npx degit Drumpy/vrttv-boilerplate $repoName 2>&1 | Out-Null;
   Write-Host "`n$([char]0x2705) Cloned template to '$repoName' folder!`n" -ForegroundColor green;
 	cd $repoName;
 	git init --quiet;
@@ -65,8 +65,7 @@ Function template {
   git add .;
   git commit --quiet -m "feat: initial commit $([char]0x2728)";
   vercel --confirm 2>&1 | Out-Null;
-  vercel git connect 2>&1 | Out-Null;
-  git push origin main --quiet;
+  git push -u origin main --quiet;
   Write-Host "`n$([char]0x2705) Your repository '$repoName' was created on Github!" -ForegroundColor green;
   Write-Host "`n$([char]0xd83d)$([char]0xdd17) Vercel Preview: 'https://$repoName-drumpy.vercel.app'`n" -ForegroundColor magenta;
 }
@@ -143,6 +142,9 @@ Function ipp {
   "$([char]0xd83c)$([char]0xdf10) Public IP: " + (Invoke-WebRequest ifconfig.me/ip).Content.Trim();
   Write-Host "`r";
 }
+
+# Gitmoji CLI
+Function ggmoji { gitmoji -c }
 
 # Git Functions
 Function ggpull() { git pull }
