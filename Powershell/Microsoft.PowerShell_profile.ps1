@@ -143,6 +143,11 @@ Function ipp {
   Write-Host "`r";
 }
 
+# Get Commands History
+Function hy {
+  code "C:\Users\Diego DoSantos\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt"
+}
+
 # Change Directory
 Function .. { cd.. }
 Function ... { cd.. ; cd.. }
